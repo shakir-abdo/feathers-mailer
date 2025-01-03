@@ -2,11 +2,28 @@
 
 ## [Unreleased](https://github.com/feathersjs-ecosystem/feathers-mailer/tree/HEAD)
 
-[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-mailer/compare/v4.0.0...HEAD)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-mailer/compare/v4.2.0...HEAD)
 
 **Merged pull requests:**
 
-- feat!: typescript [\#33](https://github.com/feathersjs-ecosystem/feathers-mailer/pull/33) ([fratzinger](https://github.com/fratzinger))
+- chore: update repository [\#37](https://github.com/feathersjs-ecosystem/feathers-mailer/pull/37) ([fratzinger](https://github.com/fratzinger))
+- Update README.md with spam prevention [\#35](https://github.com/feathersjs-ecosystem/feathers-mailer/pull/35) ([edgar-koster](https://github.com/edgar-koster))
+
+## [v4.2.0](https://github.com/feathersjs-ecosystem/feathers-mailer/tree/v4.2.0) (2025-01-03)
+
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-mailer/compare/v4.1.1...v4.2.0)
+
+## [v4.1.1](https://github.com/feathersjs-ecosystem/feathers-mailer/tree/v4.1.1) (2023-06-02)
+
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-mailer/compare/v4.1.0...v4.1.1)
+
+## [v4.1.0](https://github.com/feathersjs-ecosystem/feathers-mailer/tree/v4.1.0) (2023-06-02)
+
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-mailer/compare/v4.0.0...v4.1.0)
+
+**Merged pull requests:**
+
+- feat: update deps, make generics optional, reexport anything from nodemailer [\#34](https://github.com/feathersjs-ecosystem/feathers-mailer/pull/34) ([fratzinger](https://github.com/fratzinger))
 
 ## [v4.0.0](https://github.com/feathersjs-ecosystem/feathers-mailer/tree/v4.0.0) (2023-03-29)
 
@@ -17,6 +34,10 @@
 - find hook for mailer service is missing [\#31](https://github.com/feathersjs-ecosystem/feathers-mailer/issues/31)
 - I created typings for this package - where to put them? [\#29](https://github.com/feathersjs-ecosystem/feathers-mailer/issues/29)
 - out-of-date dependencies in npm package [\#28](https://github.com/feathersjs-ecosystem/feathers-mailer/issues/28)
+
+**Merged pull requests:**
+
+- feat!: typescript [\#33](https://github.com/feathersjs-ecosystem/feathers-mailer/pull/33) ([fratzinger](https://github.com/fratzinger))
 
 ## [v3.1.0](https://github.com/feathersjs-ecosystem/feathers-mailer/tree/v3.1.0) (2021-08-03)
 

@@ -1,47 +1,21 @@
-import { Transport as _Transport, Transporter, createTransport, SendMailOptions, TransportOptions } from 'nodemailer';
-import makeDebugger from 'debug';
-import type SMTPTransport from 'nodemailer/lib/smtp-transport';
-import type SMTPPool from 'nodemailer/lib/smtp-pool';
-import type SendmailTransport from 'nodemailer/lib/sendmail-transport';
-import type StreamTransport from 'nodemailer/lib/stream-transport';
-import type JSONTransport from 'nodemailer/lib/json-transport';
-import type SESTransport from 'nodemailer/lib/ses-transport';
+import { createTransport, SendMailOptions, TransportOptions } from 'nodemailer';
+import { MailerInferCreateTransport, AnyTransport } from './types';
 
-const debug = makeDebugger('feathers-mailer')
+export * from 'nodemailer';
+export * from './types';
 
-type Transport = SMTPTransport | SMTPTransport.Options | string | SMTPPool | SMTPPool.Options | SendmailTransport | SendmailTransport.Options | StreamTransport | StreamTransport.Options | JSONTransport | JSONTransport.Options | SESTransport | SESTransport.Options | _Transport | TransportOptions;
-type InferCreateTransport<T extends Transport> =
-  T extends SMTPTransport | SMTPTransport.Options | string
-    ? (t: T, d?: SMTPTransport.Options) => Transporter<SMTPTransport.SentMessageInfo>
-    : T extends SMTPPool | SMTPPool.Options
-      ? (t: T, d?: SMTPPool.Options) => Transporter<SMTPPool.SentMessageInfo>
-      : T extends SendmailTransport | SendmailTransport.Options
-        ? (t: T, d?: SendmailTransport.Options) => Transporter<SendmailTransport.SentMessageInfo>
-        : T extends StreamTransport | StreamTransport.Options
-          ? (t: T, d?: StreamTransport.Options) => Transporter<StreamTransport.SentMessageInfo>
-          : T extends JSONTransport | JSONTransport.Options
-            ? (t: T, d?: JSONTransport.Options) => Transporter<JSONTransport.SentMessageInfo>
-            : T extends SESTransport | SESTransport.Options
-              ? (t: T, d?: SESTransport.Options) => Transporter<SESTransport.SentMessageInfo>
-              : T extends _Transport<infer U> | TransportOptions
-                ? (t: T, d?: TransportOptions) => Transporter<U>
-                : never;
-
-export class Service<T extends Transport, Defaults extends Parameters<InferCreateTransport<T>>[1]> {
-  transporter: ReturnType<InferCreateTransport<T>>;
-  constructor (transport: Transport, defaults?: Defaults) {
-    debug('constructor', transport);
-
+export class Service<T extends AnyTransport = AnyTransport, Defaults extends Parameters<MailerInferCreateTransport<T>>[1] = Parameters<MailerInferCreateTransport<T>>[1]> {
+  transporter: ReturnType<MailerInferCreateTransport<T>>;
+  constructor (transport: T, defaults?: Defaults) {
     if (!transport) {
       throw new Error('feathers-mailer: constructor `transport` must be provided');
     }
 
-    this.transporter = createTransport(transport, defaults) as ReturnType<InferCreateTransport<T>>;
+    this.transporter = createTransport(transport, defaults) as ReturnType<MailerInferCreateTransport<T>>;
   }
 
-  async _create (body: SendMailOptions, params?: any) {
-    debug('create', body, params);
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async _create (body: SendMailOptions, _params?: any) {
     // TODO maybe body should be text/html field
     // and params is rest of options
 
@@ -55,7 +29,7 @@ export class Service<T extends Transport, Defaults extends Parameters<InferCreat
   }
 }
 
-export default function init<T extends Transport = _Transport, Defaults extends Parameters<InferCreateTransport<T>>[1] = TransportOptions> (transport: Transport, defaults?: Defaults) {
+export default function init<T extends AnyTransport = AnyTransport, Defaults extends Parameters<MailerInferCreateTransport<T>>[1] = TransportOptions> (transport: T, defaults?: Defaults) {
   return new Service<T, Defaults>(transport, defaults);
 }
 
